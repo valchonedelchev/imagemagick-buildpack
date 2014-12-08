@@ -48,21 +48,21 @@ puts-step "Bundling ufraw version $UFRAW_VERSION"
 curl --silent --max-time 60 --location "$UFRAW_URL" | tar xz -C $IM_LOCATION
 
 
-if grep --quiet rmagick $BUILD_DIR/Gemfile $BUILD_DIR/Gemfile.lock; then
-  puts-step 'RMagick detected'
-  if [ ! -f $CACHE_DIR//vendor/bundle/ruby/1.9.1/cache/$IM_VERSION-$IM_BUILD ]; then
-    puts-step "Preparing RMagick to be reinstalled if necessary"
-    # remove imagemagick from gems cache
-    rm -rf $CACHE_DIR//vendor/bundle/ruby/1.9.1/gems/rmagick-*
-    rm -rf $CACHE_DIR//vendor/bundle/ruby/1.9.1/cache/rmagick-*
-    rm -rf $CACHE_DIR//vendor/bundle/ruby/1.9.1/specifications/rmagick-*
+# if grep --quiet rmagick $BUILD_DIR/Gemfile $BUILD_DIR/Gemfile.lock; then
+#   puts-step 'RMagick detected'
+#   if [ ! -f $CACHE_DIR//vendor/bundle/ruby/1.9.1/cache/$IM_VERSION-$IM_BUILD ]; then
+#     puts-step "Preparing RMagick to be reinstalled if necessary"
+#     # remove imagemagick from gems cache
+#     rm -rf $CACHE_DIR//vendor/bundle/ruby/1.9.1/gems/rmagick-*
+#     rm -rf $CACHE_DIR//vendor/bundle/ruby/1.9.1/cache/rmagick-*
+#     rm -rf $CACHE_DIR//vendor/bundle/ruby/1.9.1/specifications/rmagick-*
 
-    mkdir -p $CACHE_DIR//vendor/bundle/ruby/1.9.1/cache
-    touch $CACHE_DIR//vendor/bundle/ruby/1.9.1/cache/$IM_VERSION-$IM_BUILD
-  fi
-else
-  puts-step 'RMagick not detected'
-fi
+#     mkdir -p $CACHE_DIR//vendor/bundle/ruby/1.9.1/cache
+#     touch $CACHE_DIR//vendor/bundle/ruby/1.9.1/cache/$IM_VERSION-$IM_BUILD
+#   fi
+# else
+#   puts-step 'RMagick not detected'
+# fi
 
 echo "export PATH=$BUILD_DIR/bin:$BUILD_DIR/vendor/imagemagick/bin:$BUILD_DIR/vendor/imagemagick/im/bin:$PATH
 export CFLAGS=\"-fopenmp -DMAGICKCORE_HDRI_ENABLE=0 -DMAGICKCORE_QUANTUM_DEPTH=16 -I$BUILD_DIR/vendor/imagemagick/include/ImageMagick-6\"
